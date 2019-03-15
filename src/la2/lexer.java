@@ -11,16 +11,21 @@ class lexer implements lexerConstants {
         {
                 try
                 {
+                	int n=1;
                         lexer analizador=new lexer(new FileInputStream("src/la2/prueba.txt"));
                         //analizador.Start();
                         analizador.programa();
                         for (Identificador v : Identificadores){
-                        	System.out.println("Nombre: "+v.getNombre()+
-                        			", Tipo: "+v.getTipo()+
-                        			", Uso: "+v.getUso()+
+                        	System.out.println(
+                        			"Posicion: "+n+
+                        			", Nombre: "+v.getNombre()+
                         			", TipoDato: "+v.getTipoDato()+
+                        			", Tipo: "+v.getTipo()+
+                        			", Valor: "+v.getValor()+
                         			", Modificador: "+v.getModificador()+
-                        			", Valor: "+v.getValor());
+                        			", Uso: "+v.getUso()
+                        			 );
+                        n++;
                         }
                         System.out.println("La cadena fu\u00e9 aceptada");
                 }

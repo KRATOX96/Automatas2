@@ -11,13 +11,13 @@ class lexer implements lexerConstants {
         {
                 try
                 {
-                	int n=1;
+                	
                         lexer analizador=new lexer(new FileInputStream("src/la2/prueba.txt"));
                         //analizador.Start();
                         analizador.programa();
                         for (Identificador v : Identificadores){
                         	System.out.println(
-                        			"Posicion: "+n+
+                        			"Posicion: "+v.getPosicion()+
                         			", Nombre: "+v.getNombre()+
                         			", TipoDato: "+v.getTipoDato()+
                         			", Tipo: "+v.getTipo()+
@@ -25,7 +25,7 @@ class lexer implements lexerConstants {
                         			", Modificador: "+v.getModificador()+
                         			", Uso: "+v.getUso()
                         			 );
-                        n++;
+                   
                         }
                         System.out.println("La cadena fu\u00e9 aceptada");
                 }
@@ -46,6 +46,7 @@ class lexer implements lexerConstants {
       jj_consume_token(CLASS);
       jj_consume_token(IDENTIFIER);
       temp.setNombre(getCurToken());
+      temp.setPosicion(token.beginLine);
       Identificadores.add(temp);
       jj_consume_token(LBRACE);
       label_1:
@@ -120,6 +121,7 @@ class lexer implements lexerConstants {
       jj_consume_token(-1);
       throw new ParseException();
     }
+    temp.setPosicion(token.beginLine);
     Identificadores.add(temp);
   }
 
@@ -163,7 +165,7 @@ class lexer implements lexerConstants {
   }
 
   static final public void testing_expression() throws ParseException {
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+	  switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case INTEGER_LITERAL:
       jj_consume_token(INTEGER_LITERAL);
       break;
@@ -173,6 +175,7 @@ class lexer implements lexerConstants {
     	temp.setTipo("Variable");
       	temp.setUso("Comparacion");
       	temp.setNombre(getCurToken());
+      	temp.setPosicion(token.beginLine);
       	Identificadores.add(temp);
       break;
     default:
@@ -262,7 +265,7 @@ class lexer implements lexerConstants {
   /** Reinitialise. */
   static public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
-    token_source.ReInit(jj_input_stream);
+    lexerTokenManager.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
@@ -289,7 +292,7 @@ class lexer implements lexerConstants {
   /** Reinitialise. */
   static public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
-    token_source.ReInit(jj_input_stream);
+    lexerTokenManager.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
@@ -323,8 +326,11 @@ class lexer implements lexerConstants {
 
   static private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
+  
     if ((oldToken = token).next != null) token = token.next;
-    else token = token.next = token_source.getNextToken();
+    else {  token = token.next = lexerTokenManager.getNextToken();
+    }
+    
     jj_ntk = -1;
     if (token.kind == kind) {
       jj_gen++;
@@ -339,7 +345,7 @@ class lexer implements lexerConstants {
 /** Get the next Token. */
   static final public Token getNextToken() {
     if (token.next != null) token = token.next;
-    else token = token.next = token_source.getNextToken();
+    else {token = token.next = lexerTokenManager.getNextToken();}
     jj_ntk = -1;
     jj_gen++;
     return token;
@@ -353,16 +359,17 @@ class lexer implements lexerConstants {
   static final public Token getToken(int index) {
     Token t = token;
     for (int i = 0; i < index; i++) {
-      if (t.next != null) t = t.next;
-      else t = t.next = token_source.getNextToken();
+      if (t.next != null)  t = t.next;
+      else t = t.next = lexerTokenManager.getNextToken();
     }
     return t;
   }
 
   static private int jj_ntk() {
-    if ((jj_nt=token.next) == null)
-      return (jj_ntk = (token.next=token_source.getNextToken()).kind);
-    else
+    if ((jj_nt=token.next) == null) {
+      return (jj_ntk = (token.next=lexerTokenManager.getNextToken()).kind);
+    }
+      else
       return (jj_ntk = jj_nt.kind);
   }
 

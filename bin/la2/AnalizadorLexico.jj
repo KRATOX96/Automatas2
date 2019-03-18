@@ -4,7 +4,7 @@ package la2;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
+import funciones.*;
 class lexer
 {
   //static Identificador temp = new Identificador();
@@ -19,7 +19,9 @@ class lexer
 			lexer analizador=new lexer(new FileInputStream("C:\\Users\\christian\\Desktop\\Automatas2\\src\\la2\\prueba.txt"));
 			//analizador.Start();
 			analizador.programa();
+			
 			 for (Identificador v : Identificadores){
+			  
                         	System.out.println(
                         			"Posicion: "+v.getPosicion()+
                         			", Nombre: "+v.getNombre()+
@@ -29,7 +31,7 @@ class lexer
                         			", Modificador: "+v.getModificador()+
                         			", Uso: "+v.getUso()
                         			 );
-                   
+                
                         }
 			System.out.println("La cadena fué aceptada");
 		}
@@ -133,6 +135,7 @@ void variable_declaration():{}{
    Token variable;
    Token modificador;
     Token tipoDato;}
+    
 	modificador=<MODIFIER> type() variable_declarator()<SEMICOLON>
 	
 {
@@ -146,6 +149,10 @@ void variable_declaration():{}{
 	  tempGeneral.setNombre(identifier.image);
 	  tempGeneral.setValor(valor.image);
 	  Identificadores.add(tempGeneral);
+
+	  int tipo1=valor.kind;
+	  int tipo2=identifier.kind;
+	  ValidarAsignacion.validar(tipo1,valor,token,identifier,tipo);
 	  
   //temp.setModificador(modificador.image);
 	 //Identificadores.add(temp);
@@ -201,6 +208,8 @@ void testing_expression():{}{
 	  tempGeneral.setNombre(identifier.image);
 	  tempGeneral.setValor(valor.image);
 	  Identificadores.add(tempGeneral);
+
+	  ValidarAsignacion.estaDeclarado(Identificadores,tempGeneral);
 	}
 }
 

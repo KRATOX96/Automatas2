@@ -4,7 +4,7 @@ package la2;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
+import funciones.*;
 class lexer implements lexerConstants {
   //static Identificador temp = new Identificador();
   public static ArrayList<Identificador> Identificadores = new ArrayList<Identificador>();
@@ -18,7 +18,9 @@ class lexer implements lexerConstants {
                         lexer analizador=new lexer(new FileInputStream("C:\u005c\u005cUsers\u005c\u005cchristian\u005c\u005cDesktop\u005c\u005cAutomatas2\u005c\u005csrc\u005c\u005cla2\u005c\u005cprueba.txt"));
                         //analizador.Start();
                         analizador.programa();
+
                          for (Identificador v : Identificadores){
+
                                 System.out.println(
                                                 "Posicion: "+v.getPosicion()+
                                                 ", Nombre: "+v.getNombre()+
@@ -120,6 +122,10 @@ class lexer implements lexerConstants {
           tempGeneral.setNombre(identifier.image);
           tempGeneral.setValor(valor.image);
           Identificadores.add(tempGeneral);
+
+          int tipo1=valor.kind;
+          int tipo2=identifier.kind;
+          ValidarAsignacion.validar(tipo1,valor,token,identifier,tipo);
 
   //temp.setModificador(modificador.image);
          //Identificadores.add(temp);
@@ -225,6 +231,8 @@ class lexer implements lexerConstants {
           tempGeneral.setNombre(identifier.image);
           tempGeneral.setValor(valor.image);
           Identificadores.add(tempGeneral);
+
+          ValidarAsignacion.estaDeclarado(Identificadores,tempGeneral);
   }
 
   static private boolean jj_initialized_once = false;

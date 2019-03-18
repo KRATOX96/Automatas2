@@ -3,6 +3,7 @@ package la2;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import funciones.*;
 
 /** Token Manager. */
 public class lexerTokenManager implements lexerConstants

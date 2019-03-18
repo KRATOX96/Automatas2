@@ -42,8 +42,8 @@ public class Identificador {
 	public String getModificador() {
 		return modificador;
 	}
-	public void setModificador(String modificador) {
-		this.modificador = (modificador == null)?"":modificador;
+	public void setModificador(String image) {
+		this.modificador = (image == null)?"":image;
 	}
 	public String getUso() {
 		return uso;

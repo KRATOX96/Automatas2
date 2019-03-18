@@ -58,4 +58,20 @@ public class ValidarAsignacion {
 			System.out.println("Error de sintaxis en la fila "+identificador.getPosicion()+": La variable "+identificador.getNombre()+ " no se encuentra declarada");
 		
 	}
+	
+	public static void existe  (ArrayList<Identificador> Identificadores,Identificador identificador)
+	{
+		for (Identificador v : Identificadores){
+			if (v.getUso().equals("Declaracion"))
+				if(v.getNombre().equals(identificador.getNombre()))
+					System.out.println("Error de sintaxis en la fila "+
+				             identificador.getPosicion()+": La variable "
+							+identificador.getNombre()+ " se encuentra declarada en la fila "+v.getPosicion()+".");	
+				
+			}
+	
+			
+		
+	}
+	
 }

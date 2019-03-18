@@ -121,11 +121,13 @@ class lexer implements lexerConstants {
           tempGeneral.setTipoDato(tipo.image);
           tempGeneral.setNombre(identifier.image);
           tempGeneral.setValor(valor.image);
+            ValidarAsignacion.existe(Identificadores,tempGeneral);
           Identificadores.add(tempGeneral);
 
           int tipo1=valor.kind;
           int tipo2=identifier.kind;
           ValidarAsignacion.validar(tipo1,valor,token,identifier,tipo);
+
 
   //temp.setModificador(modificador.image);
          //Identificadores.add(temp);
@@ -230,9 +232,8 @@ class lexer implements lexerConstants {
           tempGeneral.setTipoDato(tipo.image);
           tempGeneral.setNombre(identifier.image);
           tempGeneral.setValor(valor.image);
+           ValidarAsignacion.estaDeclarado(Identificadores,tempGeneral);
           Identificadores.add(tempGeneral);
-
-          ValidarAsignacion.estaDeclarado(Identificadores,tempGeneral);
   }
 
   static private boolean jj_initialized_once = false;

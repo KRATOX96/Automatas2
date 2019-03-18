@@ -6,7 +6,7 @@ public class funcion{
 	if(var_uno>5)
 		private boolean var_tres=true;
 		
-	while(var_cuatro>1)
+	while(var_dos>1)
 		if (var_dos>2)
 			public int var_cuatro=4;
 	

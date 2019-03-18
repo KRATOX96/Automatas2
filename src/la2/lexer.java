@@ -47,6 +47,23 @@ class lexer implements lexerConstants {
       modificador = jj_consume_token(MODIFIER);
       tipo = jj_consume_token(CLASS);
       identificador = jj_consume_token(IDENTIFIER);
+                   Identificador tempGeneral= new Identificador();
+
+          tempGeneral.setPosicion(token.beginLine);
+          tempGeneral.setTipo("Clase");
+          tempGeneral.setUso("Declaracion");
+          tempGeneral.setModificador(modificador.image);
+          tempGeneral.setTipoDato("No aplica");
+          tempGeneral.setNombre(identificador.image);
+          tempGeneral.setValor("No aplica");
+          Identificadores.add(tempGeneral);
+                 //temp.setModificador(modificador.image);
+                 // temp.setNombre(identificador.image);
+                 // Identificadores.add(temp);
+                  //System.out.println(temp.getModificador());
+                  //System.out.println();
+                  //System.out.println(identificador.image);
+
       jj_consume_token(LBRACE);
       label_1:
       while (true) {
@@ -75,23 +92,6 @@ class lexer implements lexerConstants {
         }
       }
       jj_consume_token(RBRACE);
-                   Identificador tempGeneral= new Identificador();
-
-
-          tempGeneral.setTipo("Clase");
-          tempGeneral.setUso("Declaracion");
-          tempGeneral.setModificador(modificador.image);
-          tempGeneral.setTipoDato("No aplica");
-          tempGeneral.setNombre(identificador.image);
-          tempGeneral.setValor("No aplica");
-          Identificadores.add(tempGeneral);
-                 //temp.setModificador(modificador.image);
-                 // temp.setNombre(identificador.image);
-                 // Identificadores.add(temp);
-                  //System.out.println(temp.getModificador());
-                  //System.out.println();
-                  //System.out.println(identificador.image);
-
     } catch (ParseException e) {
                 System.out.println("Error de Sintaxis");
                 System.out.println(e.toString());
@@ -112,6 +112,7 @@ class lexer implements lexerConstants {
     variable_declarator();
     jj_consume_token(SEMICOLON);
   Identificador tempGeneral= new Identificador();
+  tempGeneral.setPosicion(token.beginLine);
           tempGeneral.setTipo("variable");
           tempGeneral.setUso("Declaracion");
           tempGeneral.setModificador(modificador.image);
@@ -216,7 +217,7 @@ class lexer implements lexerConstants {
     }
             Identificador tempGeneral= new Identificador();
 
-
+          tempGeneral.setPosicion(token.beginLine);
           tempGeneral.setTipo("Comparacion");
           tempGeneral.setUso("Comparacion");
           tempGeneral.setModificador("No aplica");

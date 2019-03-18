@@ -95,12 +95,10 @@ void programa():{}{
 	Token tipo;
 	}
 	try{
-		modificador=<MODIFIER> tipo=<CLASS> identificador=<IDENTIFIER> <LBRACE> (variable_declaration()| statement())* <RBRACE>
-		
-		{
+		modificador=<MODIFIER> tipo=<CLASS> identificador=<IDENTIFIER>{
 		   Identificador tempGeneral= new Identificador();
 
-	  
+	  tempGeneral.setPosicion(token.beginLine);
 	  tempGeneral.setTipo("Clase");
 	  tempGeneral.setUso("Declaracion");
 	  tempGeneral.setModificador(modificador.image);
@@ -115,7 +113,9 @@ void programa():{}{
 		  //System.out.println();
 		  //System.out.println(identificador.image);
 		  
-		}
+		} <LBRACE> (variable_declaration()| statement())* <RBRACE>
+		
+		
 	}catch(ParseException e){
 		System.out.println("Error de Sintaxis");
 		System.out.println(e.toString());
@@ -138,6 +138,7 @@ void variable_declaration():{}{
 {
 
   Identificador tempGeneral= new Identificador();
+  tempGeneral.setPosicion(token.beginLine);
 	  tempGeneral.setTipo("variable");
 	  tempGeneral.setUso("Declaracion");
 	  tempGeneral.setModificador(modificador.image);
@@ -192,7 +193,7 @@ void testing_expression():{}{
 	{
 	    Identificador tempGeneral= new Identificador();
 
-	  
+	  tempGeneral.setPosicion(token.beginLine);
 	  tempGeneral.setTipo("Comparacion");
 	  tempGeneral.setUso("Comparacion");
 	  tempGeneral.setModificador("No aplica");
